@@ -43,4 +43,16 @@ public class TestCase {
 			System.out.println(LogersUtil.printParam(user));
 		}
 	}
+	
+	@Test
+	public void testMapperSelect() {
+		SqlSession session = MyBatisUtils.getSqlSession(Constant.CONFIG_PATH);
+		IUserDao dao  =session.getMapper(IUserDao.class);
+		/*List<User> users = dao.findAll();
+		
+		for (User user : users) {
+			System.out.println(LogersUtil.printParam(user));
+		}*/
+	}
+	
 }

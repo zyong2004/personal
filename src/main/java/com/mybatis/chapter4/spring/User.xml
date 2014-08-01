@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mybatis.chapter4.IUserDao">
+<mapper namespace="com.mybatis.chapter4.spring.IUserDao">
 	<resultMap type="User" id="userMap">
 		<result property="id" column="id" />
 		<result property="name" column="name" />
@@ -40,8 +40,36 @@
 
 		select * from user_user
 	</select>
+	
+	
+	<!-- mybatis 接口和xml文件绑定，不必像ibatis一样必须写实现类 -->
+<!-- 下面是使用和接口方法名称一致的id，namespace 必须映射正确的接口路径，id名称必须和映射的接口文件里的方法名称一致 -->
+	<select id="findbyid" parameterType="int" resultType="User">
+		select *
+		from USER_USER where id = #{id}
+	</select>
 
+	<insert id="save" parameterType="User" statementType="PREPARED"
+		useGeneratedKeys="true" keyProperty="id">
+		<!-- <selectKey keyProperty="id" resultType="int" order="BEFORE"> select 
+			CAST(RANDOM()*1000000 as INTEGER) a from SYSIBM.SYSDUMMY1 </selectKey> -->
+		insert into User_USER(name,password,email,status,createTime)
+		values
+		(#{name},#{password},#{email},#{status},#{createTime})
+	</insert>
+	<update id="update" parameterType="User" statementType="PREPARED">
+		update User_user set email =#{email}
+	</update>
 
+	<delete id="delete" parameterType="User">
+		delete from user_user
+		where id = #{id}
+	</delete>
+
+	<select id="findAll" resultType="User">
+
+		select * from user_user
+	</select>
 
 
 
