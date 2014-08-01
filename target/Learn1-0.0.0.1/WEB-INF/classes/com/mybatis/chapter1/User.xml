@@ -6,7 +6,7 @@
 <mapper namespace="com.mybatis.chapter1.IUserDao">
 
 
-	<select id="selectUSER" resultType="User">
+	<select id="selectUSER" parameterType="int" resultType="User">
 		select * from USER_USER where id = #{id}
 	</select>
 
@@ -14,8 +14,22 @@
 		useGeneratedKeys="true" keyProperty="id">
 		<!-- <selectKey keyProperty="id" resultType="int" order="BEFORE"> select 
 			CAST(RANDOM()*1000000 as INTEGER) a from SYSIBM.SYSDUMMY1 </selectKey> -->
-
-		insert into User_USER(name,password,email)
-		values(#{name}#,#{password}#,#{email}#)
+		insert into User_USER(name,password,email,status,createTime)
+		values (#{name},#{password},#{email},#{status},#{createTime})
 	</insert>
+	<update id="updateUser" parameterType="User" statementType="PREPARED" >
+		update User_user set email =#{email}
+	</update>
+	
+	<delete id="deleteUser" parameterType="User">
+		delete from user_user where id = #{id}
+	</delete>
+	
+	<select id="selectAll" resultType="User" >
+	
+		select * from user_user
+	</select>
+	
+	
+
 </mapper>

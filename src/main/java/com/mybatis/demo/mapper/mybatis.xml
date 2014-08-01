@@ -17,20 +17,12 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 <typeAliases>
-<typeAlias type="com.mybatis.chapter1.User" alias="User"/>
+<typeAlias type="com.mybatis.demo.mapper.Account" alias="Account"/>
 </typeAliases>
-	<environments default="development">
-		<environment id="development">
-			<transactionManager type="JDBC" />
-			<dataSource type="POOLED">
-				<property name="driver" value="com.mysql.jdbc.Driver" />
-				<property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis?useUnicode=true&amp;characterEncoding=gbk" />
-				<property name="username" value="root" />
-				<property name="password" value="1234" />
-			</dataSource>
-		</environment>
-	</environments>
 	<mappers>
 		<mapper resource="com/mybatis/chapter1/User.xml" />
+		<mapper resource="com/mybatis/chapter2/User.xml" />
+		<mapper resource="com/mybatis/chapter3/User.xml" />
+		<mapper resource="com/mybatis/chapter4/spring/User.xml" />
 	</mappers>
 </configuration>

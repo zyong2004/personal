@@ -64,6 +64,6 @@
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 		<property name="basePackage" value="com.mybatis.chapter4.spring"></property>
 	</bean>
-	
+	<!-- -123123 -->
 	
 </beans>

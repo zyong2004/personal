@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.chapter3.IUserDao">
+	<resultMap type="User" id="userMap">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="password" column="password"/>
+		<result property="email" column="email"/>
+		<result property="status" column="status"/>
+		<result property="createTime" column="createTime" javaType="Date" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<select id="selectUSER" parameterType="int" resultType="User">
+		select *
+		from USER_USER where id = #{id}
+	</select>
+
+	<insert id="insertUser" parameterType="User" statementType="PREPARED"
+		useGeneratedKeys="true" keyProperty="id">
+		<!-- <selectKey keyProperty="id" resultType="int" order="BEFORE"> select 
+			CAST(RANDOM()*1000000 as INTEGER) a from SYSIBM.SYSDUMMY1 </selectKey> -->
+		insert into User_USER(name,password,email,status,createTime)
+		values
+		(#{name},#{password},#{email},#{status},#{createTime})
+	</insert>
+	<update id="updateUser" parameterType="User" statementType="PREPARED">
+		update User_user set email =#{email}
+	</update>
+
+	<delete id="deleteUser" parameterType="User">
+		delete from user_user
+		where id = #{id}
+	</delete>
+
+	<select id="selectAll" resultType="User">
+
+		select * from user_user
+	</select>
+	<!-- 当使用if判断时，传递的参数为为String类型时，test里面的要修改成_parameter 不然会报错，找不到getter方法 -->
+	<select id="selectByName" resultType="User">
+		select * from user_user
+		where 1=1
+		<if test="_parameter != null">
+			AND name like "%"#{_parameter}"%"
+		</if>
+
+	</select>
+
+	<select id="selectLike" resultType="User">
+		select * from user_user
+		where 1=1
+		<if test=" name != null and name!=''">
+			AND name like "%"#{name}"%"
+		</if>
+		<if test=" email != null and email!=''">
+			AND email like "%"#{email}"%"
+		</if>
+
+	</select>
+
+
+	<!-- 使用对象和基本类型作为参数，放到一个map中 -->
+	<select id="selectByMap" resultType="User">
+
+		select * from user_user where 1=1
+		<if test="u.name!=null">
+			and name like "%"#{u.name}"%"
+		</if>
+		<if test="u.email!=null">
+			and email like "%"#{u.email}"%"
+		</if>
+		limit #{start},#{end}
+
+	</select>
+	<!-- 使用基本类型 -->
+	<select id="selectByMap1" resultType="User">
+
+		select * from user_user where 1=1
+		<if test="name!=null">
+			and name like "%"#{name}"%"
+		</if>
+		<if test="email!=null">
+			and email like "%"#{email}"%"
+		</if>
+		limit #{start},#{end}
+
+	</select>
+	
+	<select id="selectWhere" resultMap="userMap">
+		select * from user_user
+		<where>
+			<if test="name !=null and name!=''">
+				name like CONCAT('%',CONCAT(#{name},'%'))
+			</if>
+			<if test="email!=null and email!=''">
+				and email like "%"#{_databaseId}"%"
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="selectIn" resultMap="userMap" >
+		select * from user_user 
+		<where>
+			name in
+			<foreach collection="list" item="item" open="(" separator=","  close=")"> 
+				#{item}
+			</foreach>
+		</where>
+	</select>
+	
+	
+	
+</mapper>

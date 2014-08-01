@@ -17,7 +17,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 <typeAliases>
-<typeAlias type="com.mybatis.chapter1.User" alias="User"/>
+<typeAlias type="com.mybatis.bean.User" alias="User"/>
 </typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -32,5 +32,6 @@
 	</environments>
 	<mappers>
 		<mapper resource="com/mybatis/chapter1/User.xml" />
+		<mapper resource="com/mybatis/chapter2/User.xml" />
 	</mappers>
 </configuration>

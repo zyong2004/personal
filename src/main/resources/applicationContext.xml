@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	  xmlns:p="http://www.springframework.org/schema/p" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<!-- 这两个类用来启动基于Spring MVC的注解功能，将控制器与方法映射加入到容器中 -->
+	<mvc:annotation-driven />
+
+
+	<!-- 默认的视图解析器 在上边的解析错误时使用 (默认使用html)- -->
+	<bean id="defaultViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:order="1">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.InternalResourceView" />
+		<property name="contentType" value="text/html" />
+		<property name="prefix" value="/WEB-INF/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<context:component-scan base-package="com.mybatis"></context:component-scan>
+	<!-- <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/> -->
+	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations"> <list> <value>classpath:jdbc.properties</value> 
+		</list> </property> </bean> -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<!-- 事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+
+	<!-- 创建sessionFactory -->
+	<bean id="sqlSessionFactory" name="sqlSessionFactory11"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:mybatis.xml"></property>
+		<!-- mapper和resultmap配置路径 -->
+		<property name="mapperLocations">
+			<list> <!-- 表示在com.mybatis.resultmap包或以下所有目录中，以-resultmap.xml结尾所有文件 -->
+				<value>classpath:com/mybatis/demo/**/*-resultmap.xml</value>
+				<value>classpath:com/mybatis/bean/*-resultmap.xml</value>
+				<value>classpath:com/mybatis/demo/**/*-mapper.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 采用接口org.apache.ibatis.session.SqlSession的实现类org.mybatis.spring.SqlSessionTemplate。 -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- <bean id="sqlmapper" class="com.mybatis.demo.mapper.SqlMapper"></bean> -->
+	<!-- 如果添加了 sqlSessionFactory ref="sqlSessionFactory 则 datasource 的配置不能使用properties里面的，解析早于PropertyPlaceholderConfigurer 
+		如果使用mapperCannerConfigurer模式，需要设置扫描根路径也就是你的mybatis的mapper接口所在包路径； 凡是markerInterface这个接口的子接口都参与到这个扫描，也就是说所有的mapper接口继承这个SqlMapper。 
+		如果你不使用自己的transaction事务，就使用MapperScannerConfigurer来完成SqlSession的打开、关闭和事务的回滚操作。 
+		在此期间，出现数据库操作的如何异常都会被转换成DataAccessException，这个异常是一个抽象的类，继承RuntimeException； -->
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- <property name="sqlSessionFactory" ref="sqlSessionFactory"></property> -->
+		<!-- <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property> -->
+		<property name="basePackage" value="com.mybatis.demo.mapper"></property>
+		<property name="markerInterface" value="com.mybatis.demo.mapper.SqlMapper"></property>
+
+	</bean>
+
+</beans>
