@@ -36,7 +36,7 @@ public class UserDao extends SqlSessionDaoSupport implements IUserDao {
 	@Override
 	public void save(User user) {
 		// TODO Auto-generated method stub
-		getSqlSession().insert("com.mybatis.chapter4.IUserDao.insertUser", user);
+		getSqlSession().insert("com.mybatis.chapter4.spring.IUserDao.insertUser", user);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class UserDao extends SqlSessionDaoSupport implements IUserDao {
 	@Override
 	public List<User> findAll() {
 		
-		return getSqlSession().selectList("com.mybatis.chapter4.IUserDao.selectAll");
+		return getSqlSession().selectList("com.mybatis.chapter4.spring.IUserDao.selectAll");
 	}
 
 	@Override

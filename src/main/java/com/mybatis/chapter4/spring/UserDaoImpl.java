@@ -20,14 +20,14 @@ public class UserDaoImpl implements IUserDao {
 	public void save(User user) {
 //		template.u
 //		SqlSession session = MyBatisUtils.getSqlSession(Constant.CONFIG_PATH);
-		template.insert("com.mybatis.chapter4.IUserDao.insertUser", user);
+		template.insert("com.mybatis.chapter4.spring.IUserDao.insertUser", user);
 //		 MyBatisUtils.closeSession(session);
 	}
 
 	@Override
 	public void update(User user) {
 //		SqlSession session = MyBatisUtils.getSqlSession(Constant.CONFIG_PATH);
-		template.update("com.mybatis.chapter4.IUserDao.updateUser", user);
+		template.update("com.mybatis.chapter4.spring.IUserDao.updateUser", user);
 //		 MyBatisUtils.closeSession(session);
 	}
 
@@ -35,13 +35,13 @@ public class UserDaoImpl implements IUserDao {
 	@Override
 	public void delete(User user) {
 //		SqlSession session = MyBatisUtils.getSqlSession(Constant.CONFIG_PATH);
-		template.delete("com.mybatis.chapter4.IUserDao.deleteUser", user);
+		template.delete("com.mybatis.chapter4.spring.IUserDao.deleteUser", user);
 	}
 
 	@Override
 	public User findbyid(String id) {
 //		SqlSession session = MyBatisUtils.getSqlSession(Constant.CONFIG_PATH);
-		User user = template.selectOne("com.mybatis.chapter4.IUserDao.selectUSER",1);
+		User user = template.selectOne("com.mybatis.chapter4.spring.IUserDao.selectUSER",1);
 //		System.out.println(LogersUtil.printParam(user));
 //		MyBatisUtils.closeSession(session);
 		return user;
@@ -51,7 +51,7 @@ public class UserDaoImpl implements IUserDao {
 	public List<User> findAll() {
 		
 //		SqlSession session = MyBatisUtils.getSqlSession(Constant.CONFIG_PATH);
-		List<User> users = template.selectList("com.mybatis.chapter4.IUserDao.selectAll");
+		List<User> users = template.selectList("com.mybatis.chapter4.spring.IUserDao.selectAll");
 		for (User user : users) {
 			System.out.println(LogersUtil.printParam(user));
 		}
@@ -63,7 +63,7 @@ public class UserDaoImpl implements IUserDao {
 	@Override
 	public List<User> findByName(String name) {
 //		SqlSession session = MyBatisUtils.getSqlSession(Constant.CONFIG_PATH);
-		List<User> users = template.selectList("com.mybatis.chapter4.IUserDao.selectAll");
+		List<User> users = template.selectList("com.mybatis.chapter4.spring.IUserDao.selectAll");
 //		MyBatisUtils.closeSession(session);
 		return users;
 	}

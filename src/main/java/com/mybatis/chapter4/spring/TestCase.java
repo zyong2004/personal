@@ -53,6 +53,8 @@ public class TestCase {
 		for (User user : users) {
 			System.out.println(LogersUtil.printParam(user));
 		}*/
+		User user = dao.findbyid("3");
+		System.out.println(LogersUtil.printParam(user));
 	}
 	
 }
