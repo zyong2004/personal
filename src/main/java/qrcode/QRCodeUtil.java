@@ -16,23 +16,31 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.Binarizer;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.EncodeHintType;
+import com.google.zxing.LuminanceSource;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.BitArray;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-
+/**
+ * 使用google zxing
+ * @author zhangyong
+ *
+ */
 public class QRCodeUtil {
 
 	private static final String CHARSET = "UTF-8";
 	private static final String FORMAT_NAME = "jpg";
-	private static final int QRCODE_SIZE = 300;
+	private static final int QRCODE_SIZE = 400;
 	private static final int WIDTH = 60;
 	private static final int HEIGHT = 60;
 
@@ -114,8 +122,8 @@ public class QRCodeUtil {
 		int x = (QRCODE_SIZE - width) / 2;
 		int y = (QRCODE_SIZE - height) / 2;
 		grap.drawImage(src, x, y, null);
-		Shape shap = new RoundRectangle2D.Float(x, y, width, height, 6, 6);
-		grap.setStroke(new BasicStroke(2f));
+		Shape shap = new RoundRectangle2D.Float(x, y, width, height,16,16);//最后两个数字可以调整logo图形
+		grap.setStroke(new BasicStroke(2f));//设定图片边粗细
 		grap.draw(shap);
 		grap.dispose();
 	}
@@ -205,7 +213,7 @@ public class QRCodeUtil {
 
 	public static void main(String[] args) throws Exception {
 		String text = "薯　灯可分列式本上楞珂要瓜熟蒂落！000000000000000";
-		QRCodeUtil.encode(text, "e:/logo.png", "e:/", true);
+		QRCodeUtil.encode(text, "e:/Desert.jpg", "e:/", true);
 	}
 
 }
