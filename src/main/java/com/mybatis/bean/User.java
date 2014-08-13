@@ -1,7 +1,7 @@
 package com.mybatis.bean;
 
 import java.util.Date;
-
+ 
 public class User {
 
 	
