@@ -166,20 +166,18 @@ public class PKCSJKSUtil {
 
 	public static void main(String[] args) {
 
-		/*
-		 * String pfxsrcFile = "c:/users/zhangyong/icbc_lvmama.pfx"; String
-		 * pfxsrcPass = "12345678"; String jksdestFile =
-		 * "c:/users/zhangyong/11.jks"; String jksdestPass = "12345678"; String
-		 * jkssrcFile = "c:/users/zhangyong/icbc_lvmama.jks"; String jkssrcPass
-		 * = "12345678"; String pfxdestFile = "c:/users/zhangyong/test.pfx";
-		 * String pfxdestPass = "12345678";
-		 * 
-		 * 
-		 * PKCSJKSUtil c = new PKCSJKSUtil(); //c.PFX2JKS(pfxsrcFile,
-		 * pfxsrcPass, jksdestFile, jksdestPass); c.JKS2PFX(jkssrcFile,
-		 * jkssrcPass, pfxdestFile, pfxdestPass);
-		 */
-		String flag = "P2J";
+		String pfxsrcFile = "c:/users/zhangyong/icbc_lvmama.pfx"; String
+		pfxsrcPass = "12345678"; String jksdestFile =
+		"c:/users/zhangyong/11.jks"; String jksdestPass = "12345678"; String
+		jkssrcFile = "c:/users/zhangyong/icbc_lvmama.jks"; String jkssrcPass
+		= "12345678"; String pfxdestFile = "c:/users/zhangyong/test.pfx";
+		String pfxdestPass = "12345678";
+		
+		
+		PKCSJKSUtil c = new PKCSJKSUtil(); 
+		c.PFX2JKS(pfxsrcFile,pfxsrcPass, jksdestFile, jksdestPass); 
+		//c.JKS2PFX(jkssrcFile,jkssrcPass, pfxdestFile, pfxdestPass);
+	/*	String flag = "P2J";
 		if (args.length < 5) {
 			System.out.println("用法：");
 			System.out
@@ -199,7 +197,7 @@ public class PKCSJKSUtil {
 			} else {
 				c.JKS2PFX(args[1], args[2], args[3], args[4]);
 			}
-		}
+		}*/
 	}
 
 }
