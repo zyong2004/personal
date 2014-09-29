@@ -1,5 +1,9 @@
 package toHex;
-
+/**
+ * （针对英文）  加密的时候会用到
+ * @author zhangyong
+ *
+ */
 public class StringToHex {
 	/* Convert byte[] to hex string.这里我们可以将byte转换成int，然后利用Integer.toHexString(int)来转换成16进制字符串。  
 	 * @param src byte[] data  
@@ -35,8 +39,8 @@ public class StringToHex {
 	    byte[] d = new byte[length];  
 	    for (int i = 0; i < length; i++) {  
 	        int pos = i * 2;  
-	        System.out.println(charToByte(hexChars[pos])<<4);
-	        System.out.println(charToByte(hexChars[pos + 1]));
+	        //System.out.println(charToByte(hexChars[pos])<<4);
+	        //System.out.println(charToByte(hexChars[pos + 1]));
 	        d[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));  
 	    }  
 	    return d;  
@@ -111,11 +115,14 @@ public class StringToHex {
 	    }  
 	 
 	 public static void main(String[] args) {
-		//byte [] b = hexStringToBytes("zhangyong");
+		byte [] b = hexStringToBytes("E58898E5BEB7E58D8E");
 		//System.out.println(8>>3);
-		//printHexString(b);
+		printHexString(b);
+		
+		
+		System.out.println(Integer.toHexString(1112));
 		System.out.println(0x0f0+"=="+0x0f);
-		System.out.println(str2HexStr("zhangyong"));
-		System.out.println(hexStr2Str("7A68616E67796F6E67"));
+		System.out.println(str2HexStr("this is a example1112"));
+		System.out.println(hexStr2Str("E58898E5BEB7E58D8E"));
 	}
 }
