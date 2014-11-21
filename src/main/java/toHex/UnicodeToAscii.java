@@ -18,6 +18,7 @@ import sun.io.CharToByteConverter;
 
 public class UnicodeToAscii {
 	private static Logger logger = Logger.getLogger(UnicodeToAscii.class);
+
 	/**
 	 * UnicodeToAscii 构造子注解。
 	 */
@@ -33,13 +34,15 @@ public class UnicodeToAscii {
 			return s;
 		char[] orig = s.toCharArray();
 		byte[] dest = new byte[orig.length];
-		for (int i = 0; i < orig.length; i++){
+		for (int i = 0; i < orig.length; i++) {
 			dest[i] = (byte) (orig[i] & 0xFF);
 		}
 		try {
-		/*	ByteToCharConverter toChar = ByteToCharConverter
-					.getConverter("gb2312");
-			return new String(toChar.convertAll(dest));*/
+			/*
+			 * ByteToCharConverter toChar = ByteToCharConverter
+			 * .getConverter("gb2312"); return new
+			 * String(toChar.convertAll(dest));
+			 */
 			return new String(getChars(dest));
 		} catch (Exception e) {
 			System.out.println(e);
@@ -54,18 +57,19 @@ public class UnicodeToAscii {
 		if (s == null)
 			return s;
 		try {
-			/*CharToByteConverter toByte = CharToByteConverter
-					.getConverter("utf-8");
-			*/
-			//byte[] orig = toByte.convertAll(s.toCharArray());
-			
-			byte[] orig =getBytes(s.toCharArray());	
+			/*
+			 * CharToByteConverter toByte = CharToByteConverter
+			 * .getConverter("utf-8");
+			 */
+			// byte[] orig = toByte.convertAll(s.toCharArray());
+
+			byte[] orig = getBytes(s.toCharArray());
 			char[] dest = new char[orig.length];
-			for (int i = 0; i < orig.length; i++){
+			for (int i = 0; i < orig.length; i++) {
 				dest[i] = (char) (orig[i] & 0xFF);
 			}
-			
-			System.out.println(String.valueOf(dest)+"=");
+
+			System.out.println(String.valueOf(dest) + "=");
 			return new String(dest);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -222,12 +226,13 @@ public class UnicodeToAscii {
 		return firstChar;
 	}
 
-	public static String getCnASCII(String cnStr) throws UnsupportedEncodingException {
+	public static String getCnASCII(String cnStr)
+			throws UnsupportedEncodingException {
 		StringBuffer strBuf = new StringBuffer();
 		// 将字符串转换成字节序列
 		byte[] bGBK = cnStr.getBytes("utf-8");
 		for (int i = 0; i < bGBK.length; i++) {
-			 System.out.println(Integer.toHexString(bGBK[i] & 0xff));
+			System.out.println(Integer.toHexString(bGBK[i] & 0xff));
 			// 将每个字符转换成 ASCII 码
 			strBuf.append(Integer.toHexString(bGBK[i] & 0xff));
 		}
@@ -274,16 +279,18 @@ public class UnicodeToAscii {
 	}
 
 	/**
-	 * 把中文字符串转换为十六进制 Unicode 编码字符串
-	 * 编译后和tools.oschina.net的Native/Ascii一致
+	 * 把中文字符串转换为十六进制 Unicode 编码字符串 编译后和tools.oschina.net的Native/Ascii一致
 	 */
 	public static String stringToUnicode(String s) {
 		String str = "";
 		for (int i = 0; i < s.length(); i++) {
 			int ch = (int) s.charAt(i);
+			 if(ch>=19968&&ch<=171941){//汉字范围 \u4e00-\u9fa5 (中文)
 			str += "\\u" + Integer.toHexString(ch);
 			// str += Integer.toHexString(ch);
-
+			 }else{
+				 str+=s.charAt(i);
+			 }
 		}
 		return str;
 	}
@@ -292,6 +299,12 @@ public class UnicodeToAscii {
 	 * 把十六进制 Unicode 编码字符串转换为中文字符串
 	 */
 	public static String unicodeToString(String str) {
+		/**
+		 * [:alnum:] 文字数字字符 [:alpha:] 文字字符 [:digit:] 数字字符 [:graph:]
+		 * 非空字符（非空格、控制字符） [:lower:] 小写字符 [:cntrl:] 控制字符 [:print:] 非空字符（包括空格）
+		 * [:punct:] 标点符号 [:space:] 所有空白字符（新行，空格，制表符） [:upper:] 大写字符 [:xdigit:]
+		 * 十六进制数字（0-9，a-f，A-F）
+		 */
 		Pattern pattern = Pattern.compile("(\\\\u(\\p{XDigit}{4}))");
 		Matcher matcher = pattern.matcher(str);
 		char ch;
@@ -302,6 +315,24 @@ public class UnicodeToAscii {
 		return str;
 	}
 
+	
+	/** 
+	  * 判断是否为中文字符 
+	  * @param c 
+	  * @return 
+	  */  
+	public  boolean isChinese(char c) {  
+	     Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);  
+	     if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS  
+	            || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS  
+	            || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A  
+	            || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION  
+	            || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION  
+	            || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS) {  
+	        return true;  
+	    }  
+	    return false;  
+	}
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		// 看看那句能打印出中文。说明解码编码正确
@@ -329,29 +360,31 @@ public class UnicodeToAscii {
 		 * new String(str.getBytes("GB2312"), "GBK"));
 		 * System.out.println(getFirstCharOfString("中"));
 		 */
-//		System.out.println(stringToUnicode("中国"));
-//		System.out.println(unicodeToString("\u5218\u5fb7\u534e"));
+		System.out.println(stringToUnicode("中国adasd"));
+		 System.out.println(unicodeToString("\u4e2d\u56fdadasd"));
 		String s = "中国";
-		char c [] = s.toCharArray();
+		char c[] = s.toCharArray();
 
 		for (int i = 0; i < c.length; i++) {
-			logger.info(Integer.toBinaryString((int)c[i]));
-			logger.info(Integer.toHexString((int)c[i]));
+			logger.info(Integer.toBinaryString((int) c[i]));
+			logger.info(Integer.toHexString((int) c[i]));
 		}
-	     byte[] b1 = "你好".getBytes("utf-8"); 
+		byte[] b1 = "你好".getBytes("utf-8");
 
-	        byte[] b2 = new String(b1,0,b1.length,"UTF-8").getBytes("GBK"); 
+		byte[] b2 = new String(b1, 0, b1.length, "UTF-8").getBytes("GBK");
 
-	        System.out.println(new String(b1,0,b1.length)); 
+		System.out.println(new String(b1, 0, b1.length));
 
-	        System.out.println(new String(b2,0,b2.length));
-	        
-		logger.info(new String(s.getBytes("utf-8"),"gbk"));
-//		String utf8String = IOUtils.toString(IOUtils.toInputStream(s, "gbk"));
-//		logger.info(utf8String);
-//		System.out.println(new String(c));
-//		System.out.println(asciiToChineseString(chineseStringToAscii("中国")));
-//		System.out.println(getCnASCII("中国"));
+		System.out.println(new String(b2, 0, b2.length));
+
+		logger.info(new String(s.getBytes("utf-8"), "gbk"));
+		// String utf8String = IOUtils.toString(IOUtils.toInputStream(s,
+		// "gbk"));
+		// logger.info(utf8String);
+		// System.out.println(new String(c));
+		logger.info(chineseStringToAscii("中国"));
+		 System.out.println(asciiToChineseString(chineseStringToAscii("中国")));
+		 System.out.println(getCnASCII("中国"));
 	}
 
 }
