@@ -39,7 +39,7 @@ public class HanZiToPinyin {
 		try {
 			for (char c : srcChar) {
 				//判断是否为汉字
-				logger.info(Character.toString(c));
+//				logger.info(Character.toString(c));
 				if(Character.toString(c).matches("[\\u4E00-\\u9FA5]+")){
 					tmp = PinyinHelper.toHanyuPinyinStringArray(c, format);
 					dest += tmp[0];
