@@ -11,6 +11,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 public class HanZiToPinyin {
 
 	private static Logger logger = Logger.getLogger(HanZiToPinyin.class);
+
 	/**
 	 * :case 输出大小写设置
 	 * 
@@ -35,23 +36,22 @@ public class HanZiToPinyin {
 		format.setToneType(HanyuPinyinToneType.WITHOUT_TONE);// 是否有音调
 		format.setVCharType(HanyuPinyinVCharType.WITH_U_UNICODE);//
 		String dest = "";
-		String [] tmp  = new String[srcChar.length];
+		String[] tmp = new String[srcChar.length];
 		try {
 			for (char c : srcChar) {
-				//判断是否为汉字
-//				logger.info(Character.toString(c));
-				if(Character.toString(c).matches("[\\u4E00-\\u9FA5]+")){
+				// 判断是否为汉字
+				// logger.info(Character.toString(c));
+				if (Character.toString(c).matches("[\\u4E00-\\u9FA5]+")) {
 					tmp = PinyinHelper.toHanyuPinyinStringArray(c, format);
 					dest += tmp[0];
-				}else{
-					dest +=Character.toString(c).toUpperCase();
+				} else {
+					dest += Character.toString(c).toUpperCase();
 				}
-				/*if(c>=19968&&c<171941){
-					tmp = PinyinHelper.toHanyuPinyinStringArray(c, format);
-					dest += tmp[0];
-				}else{
-					dest +=Character.toString(c).toUpperCase();
-				}*/
+				/*
+				 * if(c>=19968&&c<171941){ tmp =
+				 * PinyinHelper.toHanyuPinyinStringArray(c, format); dest +=
+				 * tmp[0]; }else{ dest +=Character.toString(c).toUpperCase(); }
+				 */
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,34 +59,63 @@ public class HanZiToPinyin {
 		return dest;
 	}
 
-	
+	public static String getSpellBySplit(String srcStr, String separate) {
+	        if (null == srcStr) {
+	            return "";
+	        }
+	        char[] srcChar = srcStr.toCharArray();
+	        HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
+	        format.setCaseType(HanyuPinyinCaseType.UPPERCASE);// 是否大小写
+	        format.setToneType(HanyuPinyinToneType.WITHOUT_TONE);// 是否有音调
+	        format.setVCharType(HanyuPinyinVCharType.WITH_U_UNICODE);//
+	        StringBuffer sbf = new StringBuffer();
+	        String[] tmp = new String[srcChar.length];
+	        try {
+	            for (char c : srcChar) {
+	                // 判断是否为汉字
+	                // logger.info(Character.toString(c));
+	                if (Character.toString(c).matches("[\\u4E00-\\u9FBF]+")) {
+	                    tmp = PinyinHelper.toHanyuPinyinStringArray(c, format);
+	                    sbf.append(tmp[0]);
+	                    sbf.append(separate);
+	                } else {
+	                    sbf.append(Character.toString(c));
+	                }
+	            }
+	        } catch (Exception e) {
+	            logger.error(e);
+	            e.printStackTrace();
+	        }
+	        return sbf.toString().toUpperCase();
+	    }
+
 	/**
 	 * 提取汉字首字母拼音
+	 * 
 	 * @param str
 	 * @return
 	 */
-	public static String getPinYinHeadChar(String str){
-		String convert ="";
-		if(str==null){
+	public static String getPinYinHeadChar(String str) {
+		String convert = "";
+		if (str == null) {
 			return convert;
 		}
 		for (int i = 0; i < str.length(); i++) {
 			char c = str.charAt(i);
-			//提取汉字首字母
-			String pinyinArray[]= PinyinHelper.toHanyuPinyinStringArray(c);
-			if(null!=pinyinArray){
-				convert+=pinyinArray[0].charAt(0);
-			}else{
-				convert+=c;
+			// 提取汉字首字母
+			String pinyinArray[] = PinyinHelper.toHanyuPinyinStringArray(c);
+			if (null != pinyinArray) {
+				convert += pinyinArray[0].charAt(0);
+			} else {
+				convert += c;
 			}
 		}
 		return convert;
 	}
-	
-	
+
 	public static void main(String[] args) {
 
-		logger.info(getPinyin("其他别的什么东國家啊三分大賽的。，阿萨德ｘ．，"));
+		logger.info(getSpellBySplit("其他。，阿萨德ｘ．，adasdasd","\n"));
 	}
 
 }
