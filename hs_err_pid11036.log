@@ -1,0 +1,401 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x000000006edab8b6, pid=11036, tid=18284
+#
+# JRE version: Java(TM) SE Runtime Environment (7.0_67-b01) (build 1.7.0_67-b01)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (24.65-b04 mixed mode windows-amd64 compressed oops)
+# Problematic frame:
+# V  [jvm.dll+0x1eb8b6]
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000000000af9c000):  VMThread [stack: 0x000000000bf40000,0x000000000c040000] [id=18284]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x000000000000000a
+
+Registers:
+RAX=0x0000000000000000, RBX=0x000000000c03f0d0, RCX=0x000000000c03f0d0, RDX=0x0000000000000028
+RSP=0x000000000c03ee00, RBP=0x0000000000000003, RSI=0x0000000000000000, RDI=0x000000000c03f750
+R8 =0x0000000000000000, R9 =0x0000000000000000, R10=0x000000077b44dde0, R11=0x000000006f141978
+R12=0x0000000000000078, R13=0x000000000af9c001, R14=0x0000000000000000, R15=0x6666666666666667
+RIP=0x000000006edab8b6, EFLAGS=0x0000000000010202
+
+Top of Stack: (sp=0x000000000c03ee00)
+0x000000000c03ee00:   000000077b2a4c80 000000077b1aea48
+0x000000000c03ee10:   000000077b0d04d8 000000077b088010
+0x000000000c03ee20:   000000077b052d28 000000077b0b21b0
+0x000000000c03ee30:   000000077b0b2678 000000077b0b2678
+0x000000000c03ee40:   000000077b391a58 000000077b3c3f20
+0x000000000c03ee50:   000000077b32e688 000000077b2eb580
+0x000000000c03ee60:   000000077b339410 000000077b22e8e8
+0x000000000c03ee70:   000000077b020a68 000000077b2e2460
+0x000000000c03ee80:   000000077b0d4b00 000000077b353df8
+0x000000000c03ee90:   000000077b3060a0 000000077b1ff3c0
+0x000000000c03eea0:   000000077b099a48 000000077b050418
+0x000000000c03eeb0:   000000077b425a70 000000077b2d7628
+0x000000000c03eec0:   000000077b41ac78 000000077b103078
+0x000000000c03eed0:   000000077b4471f8 000000077b19df88
+0x000000000c03eee0:   000000077b3a5fe8 000000077b1098d0
+0x000000000c03eef0:   000000077b33bbf0 000000077b24d9f8 
+
+Instructions: (pc=0x000000006edab8b6)
+0x000000006edab896:   01 00 00 48 8b 05 80 a3 54 00 48 33 c4 48 89 84
+0x000000006edab8a6:   24 30 01 00 00 4c 63 41 10 48 8b 41 08 48 8b d9
+0x000000006edab8b6:   42 38 54 00 0a 74 33 44 0f be c2 48 8d 4c 24 20
+0x000000006edab8c6:   48 8d 15 03 bb 3a 00 e8 2e 23 e3 ff 48 8d 0d 97 
+
+
+Register to memory mapping:
+
+RAX=0x0000000000000000 is an unknown value
+RBX=0x000000000c03f0d0 is an unknown value
+RCX=0x000000000c03f0d0 is an unknown value
+RDX=0x0000000000000028 is an unknown value
+RSP=0x000000000c03ee00 is an unknown value
+RBP=0x0000000000000003 is an unknown value
+RSI=0x0000000000000000 is an unknown value
+RDI=0x000000000c03f750 is an unknown value
+R8 =0x0000000000000000 is an unknown value
+R9 =0x0000000000000000 is an unknown value
+R10=0x000000077b44dde0 is an oop
+{constant pool} 
+ - klass: {other class}
+ - holder: 0x000000077b2823d0
+ - cache: 0x000000077b44e3c8
+ -   1 :  : 'toHex/HanZiToPinyin'
+ -   2 :  : 'toHex/HanZiToPinyin'
+ -   3 :  : 'java/lang/Object'
+ -   4 :  : 'java/lang/Object'
+ -   5 :  : 'logger'
+ -   6 :  : 'Lorg/apache/log4j/Logger;'
+ -   7 :  : '<clinit>'
+ -   8 :  : '()V'
+ -   9 :  : 'Code'
+ -  10 :  : klass_index=11 name_and_type_index=13
+ -  11 :  : 'org/apache/log4j/Logger'
+ -  12 :  : 'org/apache/log4j/Logger'
+ -  13 :  : name_index=14 signature_index=15
+ -  14 :  : 'getLogger'
+ -  15 :  : '(Ljava/lang/Class;)Lorg/apache/log4j/Logger;'
+ -  16 :  : klass_index=1 name_and_type_index=17
+ -  17 :  : name_index=5 signature_index=6
+ -  18 :  : 'LineNumberTable'
+ -  19 :  : 'LocalVariableTable'
+ -  20 :  : '<init>'
+ -  21 :  : klass_index=3 name_and_type_index=22
+ -  22 :  : name_index=20 signature_index=8
+ -  23 :  : 'this'
+ -  24 :  : 'LtoHex/HanZiToPinyin;'
+ -  25 :  : 'getPinyin'
+ -  26 :  : '(Ljava/lang/String;)Ljava/lang/String;'
+ -  27 :  : klass_index=28 name_and_type_index=30
+ -  28 :  : 'java/lang/String'
+ -  29 :  : 'java/lang/String'
+ -  30 :  : name_index=31 signature_index=32
+ -  31 :  : 'toCharArray'
+ -  32 :  : '()[C'
+ -  33 :  : 'net/sourceforge/pinyin4j/format/HanyuPinyinOutputFormat'
+ -  34 :  : 'net/sourceforge/pinyin4j/format/HanyuPinyinOutputFormat'
+ -  35 :  : klass_index=33 name_and_type_index=22
+ -  36 :  : klass_index=37 name_and_type_index=39
+ -  37 :  : 'net/sourceforge/pinyin4j/format/HanyuPinyinCaseType'
+ -  38 :  : 'net/sourceforge/pinyin4j/format/HanyuPinyinCaseType'
+ -  39 :  : name_index=40 signature_index=41
+ -  40 :  : 'UPPERCASE'
+ -  41 :  : 'Lnet/sourceforge/pinyin4j/format/HanyuPinyinCaseType;'
+ -  42 :  : klass_index=33 name_and_type_index=43
+ -  43 :  : name_index=44 signature_index=45
+ -  44 :  : 'setCaseType'
+ -  45 :  : '(Lnet/sourceforge/pinyin4j/format/HanyuPinyinCaseType;)V'
+ -  46 :  : klass_index=47 name_and_type_index=49
+ -  47 :  : 'net/sourceforge/pinyin4j/format/HanyuPinyinToneType'
+ -  48 :  : 'net/sourceforge/pinyin4j/format/HanyuPinyinToneType'
+ -  49 :  : name_index=50 signature_index=51
+ -  50 :  : 'WITHOUT_TONE'
+ -  51 :  : 'Lnet/sourceforge/pinyin4j/format/HanyuPinyinToneType;'
+ -  52 :  : klass_index=33 name_and_type_index=53
+ -  53 :  : name_index=54 signature_index=55
+ -  54 :  : 'setToneType'
+ -  55 :  : '(Lnet/sourceforge/pinyin4j/format/HanyuPinyinToneType;)V'
+ -  56 :  : klass_index=57 name_and_type_index=59
+ -  57 :  : 'net/sourceforge/pinyin4j/format/HanyuPinyinVCharType'
+ -  58 :  : 'net/sourceforge/pinyin4j/format/HanyuPinyinVCharType'
+ -  59 :  : name_index=60 signature_index=61
+ -  60 :  : 'WITH_U_UNICODE'
+ -  61 :  : 'Lnet/sourceforge/pinyin4j/format/HanyuPinyinVCharType;'
+ -  62 :  : klass_index=33 name_and_type_index=63
+ -  63 :  : name_index=64 signature_index=65
+ -  64 :  : 'setVCharType'
+ -  65 :  : '(Lnet/sourceforge/pinyin4j/format/HanyuPinyinVCharType;)V'
+ -  66 :  : "" {0xd5607180}
+ -  67 :  : ''
+ -  68 :  : klass_index=69 name_and_type_index=71
+ -  69 :  : 'java/lang/Character'
+ -  70 :  : 'java/lang/Character'
+ -  71 :  : name_index=72 signature_index=73
+ -  72 :  : 'toString'
+ -  73 :  : '(C)Ljava/lang/String;'
+ -  74 :  : klass_index=11 name_and_type_index=75
+ -  75 :  : name_index=76 signature_index=77
+ -  76 :  : 'info'
+ -  77 :  : '(Ljava/lang/Object;)V'
+ -  78 :  : "[\u4E00-\u9FFF]+" {0xd5b235d0}
+ -  79 :  : '[\u4E00-\u9FFF]+'
+ -  80 :  : klass_index=28 name_and_type_index=81
+ -  81 :  : name_index=82 signature_index=83
+ -  82 :  : 'matches'
+ -  83 :  : '(Ljava/lang/String;)Z'
+ -  84 :  : klass_index=85 name_and_type_index=87
+ -  85 :  : 'net/sourceforge/pinyin4j/PinyinHelper'
+ -  86 :  : 'net/sourceforge/pinyin4j/PinyinHelper'
+ -  87 :  : name_index=88 signature_index=89
+ -  88 :  : 'toHanyuPinyinStringArray'
+ -  89 :  : '(CLnet/sourceforge/pinyin4j/format/HanyuPinyinOutputFormat;)[Ljava/lang/String;'
+ -  90 :  : 'java/lang/StringBuilder'
+ -  91 :  : 'java/lang/StringBuilder'
+ -  92 :  : klass_index=28 name_and_type_index=93
+ -  93 :  : name_index=94 signature_index=95
+ -  94 :  : 'valueOf'
+ -  95 :  : '(Ljava/lang/Object;)Ljava/lang/String;'
+ -  96 :  : klass_index=90 name_and_type_index=97
+ -  97 :  : name_index=20 signature_index=98
+ -  98 :  : '(Ljava/lang/String;)V'
+ -  99 :  : klass_index=28 name_and_type_index=100
+ - 100 :  : name_index=101 signature_index=102
+ - 101 :  : 'toUpperCase'
+ - 102 :  : '()Ljava/lang/String;'
+ - 103 :  : klass_index=90 name_and_type_index=104
+ - 104 :  : name_index=105 signature_index=106
+ - 105 :  : 'append'
+ - 106 :  : '(Ljava/lang/String;)Ljava/lang/StringBuilder;'
+ - 107 :  : klass_index=90 name_and_type_index=108
+ - 108 :  : name_index=72 signature_index=102
+ - 109 :  : klass_index=110 name_and_type_index=112
+ - 110 :  : 'java/lang/Exception'
+ - 111 :  : 'java/lang/Exception'
+ - 112 :  : name_index=113 signature_index=8
+ - 113 :  : 'printStackTrace'
+ - 114 :  : 'srcStr'
+ - 115 :  : 'Ljava/lang/String;'
+ - 116 :  : 'srcChar'
+ - 117 :  : '[C'
+ - 118 :  : 'format'
+ - 119 :  : 'Lnet/sourceforge/pinyin4j/format/HanyuPinyinOutputFormat;'
+ - 120 :  : 'dest'
+ - 121 :  : 'tmp'
+ - 122 :  : '[Ljava/lang/String;'
+ - 123 :  : 'c'
+ - 124 :  : 'C'
+ - 125 :  : 'e'
+ - 126 :  : 'Ljava/lang/Exception;'
+ - 127 :  : 'StackMapTable'
+ - 128 :  : '[C'
+ - 129 :  : '[Ljava/lang/String;'
+ - 130 :  : 'getPinYinHeadChar'
+ - 131 :  : klass_index=28 name_and_type_index=132
+ - 132 :  : name_index=133 signature_index=134
+ - 133 :  : 'charAt'
+ - 134 :  : '(I)C'
+ - 135 :  : klass_index=85 name_and_type_index=136
+ - 136 :  : name_index=88 signature_index=137
+ - 137 :  : '(C)[Ljava/lang/String;'
+ - 138 :  : klass_index=90 name_and_type_index=139
+ - 139 :  : name_index=105 signature_index=140
+ - 140 :  : '(C)Ljava/lang/StringBuilder;'
+ - 141 :  : klass_index=28 name_and_type_index=142
+ - 142 :  : name_index=143 signature_index=144
+ - 143 :  : 'length'
+ - 144 :  : '()I'
+ - 145 :  : 'str'
+ - 146 :  : 'convert'
+ - 147 :  : 'i'
+ - 148 :  : 'I'
+ - 149 :  : 'pinyinArray'
+ - 150 :  : 'main'
+ - 151 :  : '([Ljava/lang/String;)V'
+ - 152 :  : "v�+��H�J	'��" {0xd5afa328}
+ - 153 :  : '其他别的什么东國家啊三分大賽的'
+ - 154 :  : klass_index=1 name_and_type_index=155
+ - 155 :  : name_index=25 signature_index=26
+ - 156 :  : 'args'
+ - 157 :  : 'SourceFile'
+ - 158 :  : 'HanZiToPinyin.java'
+
+R11=0x000000006f141978 is an unknown value
+R12=0x0000000000000078 is an unknown value
+R13=0x000000000af9c001 is an unknown value
+R14=0x0000000000000000 is an unknown value
+R15=0x6666666666666667 is an unknown value
+
+
+Stack: [0x000000000bf40000,0x000000000c040000],  sp=0x000000000c03ee00,  free space=1019k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x1eb8b6]
+
+VM_Operation (0x000000000ce3f210): GetOrSetLocal, mode: safepoint, requested by thread 0x000000000b010000
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x000000000c2e5000 JavaThread "Service Thread" daemon [_thread_blocked, id=18932, stack(0x000000000d690000,0x000000000d790000)]
+  0x000000000c2e7800 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=18116, stack(0x000000000cf50000,0x000000000d050000)]
+  0x000000000c2ed000 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=17284, stack(0x000000000d4d0000,0x000000000d5d0000)]
+  0x000000000c2d4000 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=19848, stack(0x000000000d2f0000,0x000000000d3f0000)]
+  0x000000000b01c800 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=17428, stack(0x000000000d1d0000,0x000000000d2d0000)]
+  0x000000000b010000 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_blocked, id=17016, stack(0x000000000cd40000,0x000000000ce40000)]
+  0x000000000c2cf000 JavaThread "Attach Listener" daemon [_thread_blocked, id=8400, stack(0x000000000c8b0000,0x000000000c9b0000)]
+  0x000000000c2c8800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=18480, stack(0x000000000c770000,0x000000000c870000)]
+  0x000000000afaa800 JavaThread "Finalizer" daemon [_thread_blocked, id=15124, stack(0x000000000c090000,0x000000000c190000)]
+  0x000000000afa3000 JavaThread "Reference Handler" daemon [_thread_blocked, id=16652, stack(0x000000000c1c0000,0x000000000c2c0000)]
+  0x0000000002589000 JavaThread "main" [_thread_blocked, id=8960, stack(0x0000000002810000,0x0000000002910000)]
+
+Other Threads:
+=>0x000000000af9c000 VMThread [stack: 0x000000000bf40000,0x000000000c040000] [id=18284]
+  0x000000000c318000 WatcherThread [stack: 0x000000000cbf0000,0x000000000ccf0000] [id=14324]
+
+VM state:at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x000000000265e4f0] Threads_lock - owner thread: 0x000000000af9c000
+
+Heap
+ PSYoungGen      total 38912K, used 9132K [0x00000007d5600000, 0x00000007d8100000, 0x0000000800000000)
+  eden space 33792K, 27% used [0x00000007d5600000,0x00000007d5eeb300,0x00000007d7700000)
+  from space 5120K, 0% used [0x00000007d7c00000,0x00000007d7c00000,0x00000007d8100000)
+  to   space 5120K, 0% used [0x00000007d7700000,0x00000007d7700000,0x00000007d7c00000)
+ ParOldGen       total 87040K, used 0K [0x0000000780200000, 0x0000000785700000, 0x00000007d5600000)
+  object space 87040K, 0% used [0x0000000780200000,0x0000000780200000,0x0000000785700000)
+ PSPermGen       total 21504K, used 4409K [0x000000077b000000, 0x000000077c500000, 0x0000000780200000)
+  object space 21504K, 20% used [0x000000077b000000,0x000000077b44e728,0x000000077c500000)
+
+Card table byte_map: [0x0000000005910000,0x0000000005d40000] byte_map_base: 0x0000000001d38000
+
+Polling page: 0x0000000000120000
+
+Code Cache  [0x0000000002910000, 0x0000000002b80000, 0x0000000005910000)
+ total_blobs=251 nmethods=33 adapters=180 free_code_cache=48667Kb largest_free_block=49815168
+
+Compilation events (10 events):
+Event: 15.688 Thread 0x000000000c2e7800   29             java.util.Hashtable::rehash (168 bytes)
+Event: 15.696 Thread 0x000000000c2e7800 nmethod 29 0x0000000002984790 code [0x0000000002984920, 0x0000000002984e68]
+Event: 15.731 Thread 0x000000000c2ed000   30  s          java.util.Hashtable::put (175 bytes)
+Event: 15.742 Thread 0x000000000c2ed000 nmethod 30 0x000000000298b690 code [0x000000000298b820, 0x000000000298c268]
+Event: 15.768 Thread 0x000000000c2e7800   31             java.util.Hashtable::hash (10 bytes)
+Event: 15.769 Thread 0x000000000c2e7800 nmethod 31 0x0000000002982c50 code [0x0000000002982da0, 0x0000000002982e98]
+Event: 15.775 Thread 0x000000000c2ed000   32             java.util.Hashtable$Entry::<init> (26 bytes)
+Event: 15.775 Thread 0x000000000c2ed000 nmethod 32 0x0000000002981210 code [0x0000000002981340, 0x00000000029813d8]
+Event: 15.932 Thread 0x000000000c2e7800   33             java.lang.String::startsWith (72 bytes)
+Event: 15.934 Thread 0x000000000c2e7800 nmethod 33 0x00000000029824d0 code [0x0000000002982620, 0x0000000002982898]
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (10 events):
+Event: 0.966 Thread 0x0000000002589000 Threw 0x00000007d5b0e760 at C:\re\jdk7u67\1368\hotspot\src\share\vm\prims\jvm.cpp:1244
+Event: 11.726 Thread 0x0000000002589000 Threw 0x00000007d5b14010 at C:\re\jdk7u67\1368\hotspot\src\share\vm\prims\jvm.cpp:1244
+Event: 11.729 Thread 0x0000000002589000 Threw 0x00000007d5b1c840 at C:\re\jdk7u67\1368\hotspot\src\share\vm\prims\jvm.cpp:1244
+Event: 11.734 Thread 0x0000000002589000 Threw 0x00000007d5b213e8 at C:\re\jdk7u67\1368\hotspot\src\share\vm\prims\jvm.cpp:1244
+Event: 15.586 Thread 0x0000000002589000 Threw 0x00000007d5b24a50 at C:\re\jdk7u67\1368\hotspot\src\share\vm\prims\jvm.cpp:1244
+Event: 15.594 Thread 0x0000000002589000 Threw 0x00000007d5b2bad0 at C:\re\jdk7u67\1368\hotspot\src\share\vm\prims\jvm.cpp:1244
+Event: 15.597 Thread 0x0000000002589000 Threw 0x00000007d5b32dc0 at C:\re\jdk7u67\1368\hotspot\src\share\vm\prims\jvm.cpp:1244
+Event: 15.600 Thread 0x0000000002589000 Threw 0x00000007d5b38a78 at C:\re\jdk7u67\1368\hotspot\src\share\vm\prims\jvm.cpp:1244
+Event: 15.930 Thread 0x0000000002589000 Threw 0x00000007d5e655b0 at C:\re\jdk7u67\1368\hotspot\src\share\vm\prims\jvm.cpp:1244
+Event: 15.932 Thread 0x0000000002589000 Threw 0x00000007d5e6c450 at C:\re\jdk7u67\1368\hotspot\src\share\vm\prims\jvm.cpp:1244
+
+Events (10 events):
+Event: 39.155 Executing VM operation: ChangeBreakpoints done
+Event: 39.162 Executing VM operation: EnterInterpOnlyMode
+Event: 39.162 Executing VM operation: EnterInterpOnlyMode done
+Event: 39.162 Executing VM operation: GetCurrentLocation
+Event: 39.162 Executing VM operation: GetCurrentLocation done
+Event: 39.162 Executing VM operation: ChangeSingleStep
+Event: 39.162 Executing VM operation: ChangeSingleStep done
+Event: 39.162 Executing VM operation: ChangeSingleStep
+Event: 39.162 Executing VM operation: ChangeSingleStep done
+Event: 40.210 Executing VM operation: GetOrSetLocal
+
+
+Dynamic libraries:
+0x000000013fb90000 - 0x000000013fbc3000 	C:\Java\jdk1.7\bin\javaw.exe
+0x0000000077730000 - 0x00000000778d9000 	C:\Windows\SYSTEM32\ntdll.dll
+0x0000000077270000 - 0x000000007738f000 	C:\Windows\system32\kernel32.dll
+0x000007fefdd20000 - 0x000007fefdd8c000 	C:\Windows\system32\KERNELBASE.dll
+0x000007fefe0d0000 - 0x000007fefe1ab000 	C:\Windows\system32\ADVAPI32.dll
+0x000007fefe480000 - 0x000007fefe51f000 	C:\Windows\system32\msvcrt.dll
+0x000007fefe520000 - 0x000007fefe53f000 	C:\Windows\SYSTEM32\sechost.dll
+0x000007fefeac0000 - 0x000007fefebed000 	C:\Windows\system32\RPCRT4.dll
+0x0000000077630000 - 0x000000007772a000 	C:\Windows\system32\USER32.dll
+0x000007fefe7a0000 - 0x000007fefe807000 	C:\Windows\system32\GDI32.dll
+0x000007fefddd0000 - 0x000007fefddde000 	C:\Windows\system32\LPK.dll
+0x000007fefe370000 - 0x000007fefe439000 	C:\Windows\system32\USP10.dll
+0x000007fefc420000 - 0x000007fefc614000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.7601.17514_none_fa396087175ac9ac\COMCTL32.dll
+0x000007fefe540000 - 0x000007fefe5b1000 	C:\Windows\system32\SHLWAPI.dll
+0x000007fefe450000 - 0x000007fefe47e000 	C:\Windows\system32\IMM32.DLL
+0x000007fefdfc0000 - 0x000007fefe0c9000 	C:\Windows\system32\MSCTF.dll
+0x000000005c380000 - 0x000000005c452000 	C:\Java\jdk1.7\jre\bin\msvcr100.dll
+0x000000006ebc0000 - 0x000000006f392000 	C:\Java\jdk1.7\jre\bin\server\jvm.dll
+0x000007fef9b80000 - 0x000007fef9b89000 	C:\Windows\system32\WSOCK32.dll
+0x000007fefe320000 - 0x000007fefe36d000 	C:\Windows\system32\WS2_32.dll
+0x000007fefe440000 - 0x000007fefe448000 	C:\Windows\system32\NSI.dll
+0x000007fefdc70000 - 0x000007fefdcab000 	C:\Windows\system32\WINMM.dll
+0x0000000077900000 - 0x0000000077907000 	C:\Windows\system32\PSAPI.DLL
+0x0000000073750000 - 0x000000007375f000 	C:\Java\jdk1.7\jre\bin\verify.dll
+0x000000006b180000 - 0x000000006b1a8000 	C:\Java\jdk1.7\jre\bin\java.dll
+0x000000006aba0000 - 0x000000006abd5000 	C:\Java\jdk1.7\jre\bin\jdwp.dll
+0x0000000073730000 - 0x0000000073738000 	C:\Java\jdk1.7\jre\bin\npt.dll
+0x000000006ab80000 - 0x000000006ab95000 	C:\Java\jdk1.7\jre\bin\zip.dll
+0x0000000073170000 - 0x0000000073179000 	C:\Java\jdk1.7\jre\bin\dt_socket.dll
+0x000007fefb600000 - 0x000007fefb615000 	C:\Windows\system32\NLAapi.dll
+0x000007fef9fb0000 - 0x000007fef9fc5000 	C:\Windows\system32\napinsp.dll
+0x000007fef9fd0000 - 0x000007fef9fe9000 	C:\Windows\system32\pnrpnsp.dll
+0x000007fefd1b0000 - 0x000007fefd205000 	C:\Windows\System32\mswsock.dll
+0x000007fefd030000 - 0x000007fefd08b000 	C:\Windows\system32\DNSAPI.dll
+0x000007fef9f70000 - 0x000007fef9f7b000 	C:\Windows\System32\winrnr.dll
+0x000007fefaf10000 - 0x000007fefaf37000 	C:\Windows\system32\IPHLPAPI.DLL
+0x000007fefaef0000 - 0x000007fefaefb000 	C:\Windows\system32\WINNSI.DLL
+0x000007fefacf0000 - 0x000007fefad43000 	C:\Windows\System32\fwpuclnt.dll
+0x000007fefa250000 - 0x000007fefa258000 	C:\Windows\system32\rasadhlp.dll
+0x000007fefcb80000 - 0x000007fefcb87000 	C:\Windows\System32\wshtcpip.dll
+0x000000006aa90000 - 0x000000006aaa9000 	C:\Java\jdk1.7\jre\bin\net.dll
+0x000007fefd1a0000 - 0x000007fefd1a7000 	C:\Windows\System32\wship6.dll
+0x000000006aa70000 - 0x000000006aa81000 	C:\Java\jdk1.7\jre\bin\nio.dll
+0x000007fef58d0000 - 0x000007fef59f5000 	C:\Windows\system32\dbghelp.dll
+
+VM Arguments:
+jvm_args: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:51799 -Dfile.encoding=UTF-8 
+java_command: toHex.HanZiToPinyin
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Java\jdk1.6
+PATH=C:\Java\jdk1.7\jre\bin;F:\oracle\product\11.2.0\client_1\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Java\jdk1.6\bin;D:\developTools\apache-maven-2.2.1\bin;D:\developTools\apache-ant-1.9.4\bin;E:\personal\zookeeper\hadoop\hadoop-2.4.1.tar64\hadoop-2.4.1\bin;E:\personal\scala\scala-2.9.1.final\bin
+USERNAME=zhangyong
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 37 Stepping 5, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 , 64 bit Build 7601 Service Pack 1
+
+CPU:total 4 (2 cores per cpu, 2 threads per core) family 6 model 37 stepping 5, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, ht, tsc, tscinvbit
+
+Memory: 4k page, physical 8379448k(3106212k free), swap 16757032k(8944696k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (24.65-b04) for windows-amd64 JRE (1.7.0_67-b01), built on Jul 25 2014 08:55:00 by "java_re" with unknown MS VC++:1600
+
+time: Fri Nov 21 18:03:07 2014
+elapsed time: 40 seconds
+
