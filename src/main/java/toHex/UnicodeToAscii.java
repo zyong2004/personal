@@ -8,7 +8,6 @@ import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.CharSet;
 import org.apache.commons.lang.CharSetUtils;
 import org.apache.log4j.Logger;

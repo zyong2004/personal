@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xianglin.mmgw.dao.MmgwFileUploadUrlDao">
+	
+	<resultMap type="com.xianglin.mmgw.po.MmgwFileUploadUrlEntity" id="fileuploadMap">
+		<result property="id" column="ID" />
+		<result property="fileType" column="FILE_TYPE" />
+		<result property="seqNum" column="SEQ_NUM" />
+		<result property="custId" column="CUST_ID" />
+		<result property="preUUIDTxnId" column="PRE_UUID_TXNID" />
+		<result property="prodId" column="PROD_ID" />
+		<result property="imageName" column="IMAGE_NAME" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="updateDate" column="UPDATE_DATE" />
+		<result property="updateTime" column="UPDATE_TIME" />
+	</resultMap>
+
+	<insert id="save" parameterType="mmgwFile" statementType="PREPARED"
+		useGeneratedKeys="true" keyProperty="id">
+	<!-- 	<selectKey keyProperty="id" keyColumn="id" resultType="long">
+			select last_insert_id();
+		</selectKey> -->
+		<!-- <selectKey keyProperty="id" resultType="int" order="BEFORE"> select 
+			CAST(RANDOM()*1000000 as INTEGER) a from SYSIBM.SYSDUMMY1 </selectKey> -->
+			
+		insert into MMGW_FILE_UPLOAD_URL(FILE_TYPE,SEQ_NUM,CUST_ID,PRE_UUID_TXNID,PROD_ID,IMAGE_NAME,CREATE_DATE,CREATE_TIME,UPDATE_DATE,UPDATE_TIME)
+		VALUES
+		(#{fileType},#{seqNum},#{custId},#{preUUIDTxnId},#{prodId},#{imageName},#{createDate},#{createTime},#{updateDate},#{updateTime})	
+	</insert>
+	
+	<update id="update" parameterType="mmgwFile" statementType="PREPARED">
+		update MMGW_FILE_UPLOAD_URL set FILE_TYPE =#{fileType},
+		SEQ_NUM=#{seqNum}
+		CUST_ID=#{custId},
+		PRE_UUID_TXNID=#{preUUIDTxnId},
+		PROD_ID=#{prodId},
+		IMAGE_NAME=#{imageName},
+		CREATE_DATE=#{createDate},
+		CREATE_TIME=#{createTime},
+		UPDATE_DATE=#{updateDate},
+		UPDATE_TIME=#{updateTime}  
+		  WHERE  ID=#{id}
+	</update>
+
+	<select id="queryMmgwFileUploadUrlByPK"  parameterType="mmgwFile">
+		select * from  MMGW_FILE_UPLOAD_URL
+		where id = #{id}
+	</select>
+
+	<select id="queryMmgwFileUrls" parameterType="java.util.Map" resultMap="fileuploadMap" >
+		
+		select * from MMGW_FILE_UPLOAD_URL
+		
+	</select>
+	
+	<sql id="selectMmgwFileuploadByContidition">
+		select * from MMGW_FILE_UPLOAD_URL
+			<where>
+				<if test="seqNum !=null">
+					seqNum = #{seqNum}
+				</if>
+				<if test="custId !=null">
+				and	custId = #{custId}
+				</if>
+				<if test="preUUIDTxnId !=null">
+				and	preUUIDTxnId = #{preUUIDTxnId}
+				</if>
+				<if test="prodId !=null">
+				and	prodId = #{prodId}
+				</if>
+				<if test="startCreateDate !=null">
+				 and <![CDATA[startCreateDate >= #{startCreateDate}]]>
+				</if>
+				<if test="endCreateData !=null">
+				and	<![CDATA[endCreateData <= #{endCreateData}]]>
+				</if>
+				<if test="startCreateTime !=null">
+				and	<![CDATA[startCreateTime >= #{startCreateTime}]]>
+				</if>
+				<if test="endCreateTime !=null">
+				and	<![CDATA[endCreateTime <= #{endCreateTime}]]>
+				</if>
+				<if test="startUpdateDate !=null">
+				and	<![CDATA[startUpdateDate >= #{startUpdateDate}]]>
+				</if>
+				<if test="endUpdateTime !=null">
+				and <![CDATA[endUpdateTime <= #{endUpdateTime}]]>
+				</if>
+			</where>
+	</sql>
+	
+	<!-- mybatis 接口和xml文件绑定，不必像ibatis一样必须写实现类 -->
+<!-- 下面是使用和接口方法名称一致的id，namespace 必须映射正确的接口路径，id名称必须和映射的接口文件里的方法名称一致 -->
+<!-- 	<select id="findbyid" parameterType="String" resultType="User">
+		select *
+		from USER_USER where id = #{id}
+	</select>
+
+	<insert id="save" parameterType="User" statementType="PREPARED"
+		useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE"> select 
+			CAST(RANDOM()*1000000 as INTEGER) a from SYSIBM.SYSDUMMY1 </selectKey>
+		insert into User_USER(name,password,email,status,createTime)
+		values
+		(#{name},#{password},#{email},#{status},#{createTime})
+	</insert>
+	<update id="update" parameterType="User" statementType="PREPARED">
+		update User_user set email =#{email}
+	</update>
+
+	<delete id="delete" parameterType="User">
+		delete from user_user
+		where id = #{id}
+	</delete>
+
+	<select id="findAll" resultType="User">
+
+		select * from user_user
+	</select>
+ -->
+
+
+
+</mapper>

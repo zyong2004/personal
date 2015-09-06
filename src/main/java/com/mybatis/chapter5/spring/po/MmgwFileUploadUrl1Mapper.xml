@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xianglin.mmgw.dao.MmgwFileUploadUrlMapper">
+	<resultMap type="com.xianglin.mmgw.po.MmgwFileUploadUrlEntity" id="fileuploadMap">
+		<result property="id" column="ID" />
+		<result property="fileType" column="FILE_TYPE" />
+		<result property="seqNum" column="SEQ_NUM" />
+		<result property="custId" column="CUST_ID" />
+		<result property="preUUIDTxnId" column="PRE_UUID_TXNID" />
+		<result property="prodId" column="PROD_ID" />
+		<result property="imageName" column="IMAGE_NAME" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="updateDate" column="UPDATE_DATE" />
+		<result property="updateTime" column="UPDATE_TIME" />
+	</resultMap>
+	<select id="queryMmgwFileUrls" parameterType="java.util.Map"
+		resultMap="fileuploadMap">
+
+		select * from MMGW_FILE_UPLOAD_URL
+
+	</select>
+
+</mapper>
