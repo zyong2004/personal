@@ -1,124 +1,135 @@
 package security;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import toHex.StringToHex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
- * AES加密解密
- * 
+ * 加密解密
  * @author zhangyong
- * 
+ * 2015年9月21日
  */
 public class AESUtil {
 
-	public static void main(String[] args) {
-		String bef_str = "中号ask大家";
-		String hx ="BB01CF7070A8DF744881E350B3CDF2FE";
+	private static final Logger LOG = LoggerFactory.getLogger(AESUtil.class);
+	public static String algorithm ="AES";
+	public static String MMGWSECRET_FOR_MD5 ="AFDFASDFASFQQEFFVBQERRRQ";
+	
+	public static String MMGWSECRET_FOR_AES ="AFDFASDFASFQQEFFVBQERRRQ";
+	
+	public static String MMGW_DEFAULT_QRCODE_TIMEOUT="mmgw_default_qrcode_timeout";
+	public static String enctrypt(String content,String password){
+//		SecretKey key = getKey(algorithm,password);
+//		byte [] enCodeFormat = key.getEncoded();
+		SecretKeySpec ss = new SecretKeySpec(password.getBytes(), algorithm);
+		try {
+			IvParameterSpec iv = new IvParameterSpec(password.getBytes("UTF-8"));
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			cipher.init(Cipher.ENCRYPT_MODE, ss,iv);
+//			cipher.init(Cipher.ENCRYPT_MODE, ss);
+			byte b [] = cipher.doFinal(content.getBytes());
+			return byteToHex(b);
+		} catch (Exception e) {
+			LOG.error("AES 加密失败",e);
+		}
 		
-		String password = "test";
-		byte[] aft = entrypt(bef_str.getBytes(), password);
-		System.out.println(aft);
-		StringToHex.printHexString(aft);
-		System.out.println();
-		String hexS = StringToHex.bytesToHexString(aft);
-		System.out.println(hexS.toUpperCase());
-		byte[] aft_ = StringToHex.hexStringToBytes(hexS);
-		StringToHex.printHexString(aft_);
-		System.out.println();
-		System.out.println(aft_);
-		System.out.println(aft.equals(aft_));
-		System.out.println(decrypt(aft_,password));
-		/**
-		 * [B@1ff5ea7
-BB01CF7070A8DF744881E350B3CDF2FE
-BB01CF7070A8DF744881E350B3CDF2FE
-BB01CF7070A8DF744881E350B3CDF2FE
-[B@1813fac
-		 */
-		Long ss = null;
-		System.out.println(Long.valueOf(1) +ss );
-	}
-
-	public static byte[] entrypt(byte[] content, String password) {
-		try {
-
-			SecretKey secretKey = getKey(password);
-			byte[] enCodeFormat = secretKey.getEncoded();
-			SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
-			Cipher cipher = Cipher.getInstance("AES");
-			cipher.init(Cipher.ENCRYPT_MODE, key);
-			byte[] result = cipher.doFinal(content);
-			String aft_aes = parseByte2HexStr(result);
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		return null;
 	}
-
-	public static String decrypt(byte[] atf_aes, String password) {
+	
+	
+	public static String decrypt(byte [] content,String password){
+	/*	SecretKey key = getKey(algorithm,password);
+		byte [] enCodeFormat = key.getEncoded();*/
+		SecretKeySpec ss = new SecretKeySpec(password.getBytes(), algorithm);
+		
 		try {
-//			byte[] content = parseHexStr2Byte(aft_aes);
-			SecretKey secretKey = getKey(password);
-			byte[] enCodeFormat = secretKey.getEncoded();
-			SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
-			Cipher cipher = Cipher.getInstance("AES");
-			cipher.init(Cipher.DECRYPT_MODE, key);
-			byte[] result = cipher.doFinal(atf_aes);
-			String bef_aes = new String(result);
-			return bef_aes;
+			IvParameterSpec iv = new IvParameterSpec(password.getBytes("UTF-8"));
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+			cipher.init(Cipher.DECRYPT_MODE, ss,iv);
+//			cipher.init(Cipher.DECRYPT_MODE, ss);
+			byte b [] = cipher.doFinal(content);
+			return new String(b);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error("AES 解密失败",e);
 		}
+		
 		return null;
-
 	}
-
-	public static SecretKey getKey(String strKey) {
+	/**
+	 * 和系统平台有关，会导致每次生成的密文不一样
+	 * @param algorithm
+	 * @param password
+	 * @return
+	 */
+	public static SecretKey getKey(String algorithm,String password){
+		
 		try {
-
-			KeyGenerator generator = KeyGenerator.getInstance("AES");
+			KeyGenerator gen = KeyGenerator.getInstance(algorithm);
 			SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
-			secureRandom.setSeed(strKey.getBytes());
+			secureRandom.setSeed(password.getBytes());
 
-			generator.init(128, secureRandom);
-
-			return generator.generateKey();
-		} catch (Exception e) {
+			gen.init(128, secureRandom);
+//			gen.init(128);
+			return gen.generateKey();
+		} catch (NoSuchAlgorithmException e) {
+			LOG.error("getKey 获取加密密钥失败 ",e);
 			e.printStackTrace();
-		}
+		} 
 		return null;
 	}
-
-	public static byte[] parseHexStr2Byte(String hexStr) {
-		if (hexStr.length() < 1) {
-			return null;
-		}
-		byte[] result = new byte[hexStr.length() / 2];
-		for (int i = 0; i < result.length; i++) {
-			int value = Integer.parseInt(hexStr.substring(i * 2, i * 2 + 2));
-			result[i] = (byte) value;
-		}
-		return result;
-	}
-
-	public static String parseByte2HexStr(byte[] content) {
-
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < content.length; i++) {
-			String hex = Integer.toHexString(content[i] & 0xFF);
-			if (hex.length() == 1) {
-				hex = '0' + hex;
-
+	
+	private static String byteToHex(byte [] b){
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < b.length; i++) {
+			String s = Integer.toHexString(b[i] & 0xFF);
+			if(s.length()==1){
+				s = '0'+s;
 			}
-			sb.append(hex.toUpperCase());
+			sb.append(s.toUpperCase());
 		}
 		return sb.toString();
 	}
+	
+	public static byte[] hexStrToByte(String hexStr) {
+		 if (hexStr == null || hexStr.equals("")) {  
+		        return null;  
+		    }  
+		 	hexStr = hexStr.toUpperCase();  
+		    int length = hexStr.length() / 2;  
+		    char[] hexChars = hexStr.toCharArray();  
+		    byte[] d = new byte[length];  
+		    for (int i = 0; i < length; i++) {  
+		        int pos = i * 2;  
+		        d[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));  
+		    }  
+		    return d;  
+	}
+	
+	 private static byte charToByte(char c) {  
+		 int index = "0123456789ABCDEF".indexOf(c);
+		 if(index==-1){
+			 index = "0123456789abcdef".indexOf(c);  
+		 }
+	    return (byte)index;  
+	}  
+	 
+	 
+	public static void main(String[] args) {
+		String ss= "20150922211523-0D02D31EEFA9843419F078198525DF35";
+		String password = "lllllzy1ong";
+		System.out.println(enctrypt(ss, MMGWSECRET_FOR_AES.substring(0,16)));
+		System.out.println(decrypt(hexStrToByte("1AD22A6D6D5D92497FF560D083FBC85BD19727CE4F194D5506D714CCF182F42F83194C5C518557B8D34ABBA27CDD2A05"),  MMGWSECRET_FOR_AES.substring(0,16)));
+		LOG.info(enctrypt(ss, password));
+	}
+	
 }

@@ -108,7 +108,6 @@ public class Signaturer {
 		
 		PublicKey pubkey = KeyGenerater.getPublicKeyByCert(certificatePath);
 		System.out.println("decryByPubKey pubkey:"+pubkey.getAlgorithm());
-
 		Cipher cipher = Cipher.getInstance(pubkey.getAlgorithm());
 		cipher.init(Cipher.DECRYPT_MODE, pubkey);
 		return cipher.doFinal(data);

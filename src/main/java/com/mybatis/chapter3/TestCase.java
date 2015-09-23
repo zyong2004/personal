@@ -5,13 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.jdbc.SelectBuilderTest;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import com.mybatis.bean.User;
 import com.mybatis.util.LogersUtil;
 import com.mybatis.util.MyBatisUtils;
+
+
+//import com.mybatis.util.LogersUtil;
+//import com.mybatis.util.MyBatisUtils;
 
 public class TestCase extends junit.framework.TestCase{
 

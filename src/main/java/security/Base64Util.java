@@ -1,4 +1,4 @@
-package util;
+package security;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -14,10 +14,10 @@ public class Base64Util {
 	public static void main(String[] args) {
 
 		Base64 b = new Base64();
-		System.out.println(Base64.encodeToString("中国"));
+		System.out.println(Base64.encodeToString("中国哦随即大幅拉升解放了的距离"));
 		System.out.println(Base64.decodeToString("5Lit5Zu9"));
 		
-		Base64OutputStream bout = null;
+/*		Base64OutputStream bout = null;
 		
 		try {
 			bout = new Base64OutputStream(new FileOutputStream("d:\\bugreport1.txt"));
@@ -40,7 +40,7 @@ public class Base64Util {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }
