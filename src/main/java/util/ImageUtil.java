@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +27,10 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGEncodeParam;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 /**
  * 
@@ -46,6 +52,38 @@ public class ImageUtil {
 		compressPic(inputFileStream, outputFile, IAMGE_TYPE_DEFAULT);
 	}
 
+	
+	public static void compressPicJpeg(BufferedImage  im, File descFile) throws Exception{
+		FileOutputStream newimage = new FileOutputStream( descFile);
+		JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(newimage);
+		
+		JPEGEncodeParam jep = JPEGCodec.getDefaultJPEGEncodeParam(im);
+//		jep.setQuality(0.9f, true);
+		encoder.encode(im, jep);
+		newimage.close();
+		
+		
+	}
+	
+	
+	public static BufferedImage zoomImage(String src) throws IOException{
+		BufferedImage result = null;
+		File file =new File(src);
+		if(!file.exists()){
+			System.out.println("文件不存在");
+		}
+		BufferedImage im = ImageIO.read(file);
+		int width = im.getWidth();
+		int height = im.getHeight();
+		
+		float resizeTimes = 0.3f;
+		int toWidth = (int) (width* resizeTimes);
+		int toheight = (int) (height* resizeTimes);
+		result = new BufferedImage(toWidth, toheight, BufferedImage.TYPE_INT_BGR);
+		result.getGraphics().drawImage(im.getScaledInstance(toWidth, toheight, Image.SCALE_SMOOTH), 0, 0, null);
+		return result;
+	}
+	
 	public static boolean compressPic(InputStream srcFile, File descFile, String image_type) {
 		try {
 			BufferedImage src = null;
@@ -62,7 +100,7 @@ public class ImageUtil {
 			// 要使用压缩，必须指定压缩方式为MODE_EXPLICIT
 			imgWriteParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
 			// 这里指定压缩的程度，参数qality是取值0~1范围内，
-			imgWriteParams.setCompressionQuality((float) 0.1);
+			imgWriteParams.setCompressionQuality((float) 0.5);
 			imgWriteParams.setProgressiveMode(ImageWriteParam.MODE_DISABLED);
 			ColorModel colorModel = ColorModel.getRGBdefault();
 			// 指定压缩时使用的色彩模式
@@ -206,14 +244,18 @@ public class ImageUtil {
 	private static String generateImageName(String suffix){
 		return String.valueOf(UUID.randomUUID()+"."+suffix);
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException, Exception {
 		/*System.out.println( Arrays.toString(ImageIO.getReaderFileSuffixes()));
 		System.out.println( Arrays.toString(ImageIO.getReaderFormatNames()));
 		System.out.println( Arrays.toString(ImageIO.getReaderMIMETypes()));*/
-		File f = new File("d:\\test/11.jpeg");
-		String []savePath = new String[]{"d:/test/test","d:\\test"};
-		thumbnailImage(f, 118, 88, "tt", false,savePath);
-		System.out.println(savePath[0].lastIndexOf("/"));
-		System.out.println(savePath[0].substring(savePath[0].lastIndexOf("/")+1,savePath[0].length()));
+//		File f = new File("d:\\test/11.jpeg");
+//		String []savePath = new String[]{"d:/test/test","d:\\test"};
+//		thumbnailImage(f, 118, 88, "tt", false,savePath);
+//		System.out.println(savePath[0].lastIndexOf("/"));
+//		System.out.println(savePath[0].substring(savePath[0].lastIndexOf("/")+1,savePath[0].length()));
+	String srcFile ="d:/123.jpeg";
+	String descFile ="d:/test11.png";
+	compressPic(new FileInputStream(srcFile), new File(descFile), "png");
+//	compressPicJpeg(zoomImage(srcFile),new File(descFile));
 	}
 }
