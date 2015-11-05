@@ -26,7 +26,7 @@ public class Test {
 		System.out.println("\\$"+"======"+"\\\\\\$");
 		value = value.replaceAll("\\$", "\\\\\\$");	//前两个对3-4转义，5对6转义
 		System.out.println(value);
-	//	testCert1();
+		testCert2();
 	}
 	
 	public static void test1(){
@@ -58,10 +58,10 @@ public class Test {
 		System.out.println(Integer.toHexString(16));
 		System.out.println(Integer.valueOf("3e8", 16));
 	}
-static	String certPath = "C:\\Documents and Settings\\zhangyong\\zlex.cer";
+static	String certPath = "d:\\person\\xianglin.cer";
 static	String password = "123456";
-static	String alias = "www.zlex.org";
-static	String keyStorePath =  "C:\\Documents and Settings\\zhangyong\\zlex.keystore";
+static	String alias = "www.xianglin.cn";
+static	String keyStorePath =  "d:\\person\\xianglin.keystore";
 	
 	/**
 	 * 公钥加密，私钥解密
@@ -72,6 +72,7 @@ static	String keyStorePath =  "C:\\Documents and Settings\\zhangyong\\zlex.keyst
 		String s= "公钥加密，私钥解密";
 		byte[] encry = Signaturer.encryByPubKey(s.getBytes(),certPath);
 		
+		System.out.println(new String(encry));
 		byte [] decry = Signaturer.decryByPriKey(encry, keyStorePath, alias, password);
 		
 		String output = new String(decry);

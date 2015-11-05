@@ -11,6 +11,7 @@ import java.security.SecureRandom;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.Enumeration;
 
 import jodd.util.Base64;
 
@@ -101,6 +102,11 @@ public class KeyGenerater {
 	public static PrivateKey getPrivateKey(String keyStorePath, String alias,
 			String password) throws Exception {
 		KeyStore ks = getKeyStore(keyStorePath, password);
+		Enumeration<String> keyAalias = ks.aliases();
+		
+		while(keyAalias.hasMoreElements()){//如果不知道别名时，需要keystore中遍历
+			alias  = keyAalias.nextElement();
+		}
 		return (PrivateKey) ks.getKey(alias, password.toCharArray());
 	}
 
