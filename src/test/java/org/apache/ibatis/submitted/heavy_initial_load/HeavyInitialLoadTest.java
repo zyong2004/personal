@@ -96,11 +96,12 @@ public class HeavyInitialLoadTest {
   }
 
   public void selectThing() throws Exception {
+	  System.out.println("==========");
     SqlSession sqlSession = sqlSessionFactory.openSession();
     try {
       ThingMapper mapper = sqlSession.getMapper(ThingMapper.class);
-      Thing selected = mapper.selectByCode(Code._1);
-      Assert.assertEquals(1, selected.getId().longValue());
+      Thing selected = mapper.selectByCode(Code._21);
+      Assert.assertEquals(21, selected.getId().longValue());
     } finally {
       sqlSession.close();
     }

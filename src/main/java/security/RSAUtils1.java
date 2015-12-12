@@ -370,8 +370,8 @@ public class RSAUtils1 {
 		}
 		PublicKey publicKey = loadPublicKey(publicStr);
 		byte[] encryptByte = encryptData(param.getBytes(), publicKey);
-		Base64Utils mBase64Utils = new Base64Utils();
-		param = mBase64Utils.encode(encryptByte);
+//		Base64Utils mBase64Utils = new Base64Utils();
+		param = Base64Utils.encode(encryptByte);
 		return param;
 	}
 
