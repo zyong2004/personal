@@ -63,9 +63,11 @@
     <!-- 配置JMS模板（Topic），pubSubDomain="true"-->
     <bean id="topicJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory" ref="connectionFactory" />
-        <property name="defaultDestination" ref="topicDestination" />
+<!--         <property name="defaultDestination" ref="topicDestination" /> -->
 <!--         <property name="pubSubDomain" value="true" /> -->
         <property name="receiveTimeout" value="10000" />
+   	<!--  <property name="pubSubDomain" value="true" /> --><!-- 不加这属性，不能做topic 很奇怪，其他的没问题 -->
+		<!-- 如果在producer中指定的Destination 为对象，不是字符串，pubSubDomain不用加 也可以消费topic -->
     </bean>
     <!--topic消息发布者 -->
     <bean id="topicProvider" class="jms.TopicProvider">
