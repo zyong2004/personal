@@ -99,9 +99,10 @@ public class SFTPChannel {
 			defaultPort = Integer.valueOf(port);
 		}
 		try {
-			session = getSession(userName, host, defaultPort, timeOut, proxy);
+			session = getSession(userName, host, defaultPort,password, timeOut, proxy);
 			logger.debug("session connected");
 			logger.debug("open channel start");
+			
 			channel = session.openChannel(connectType);
 
 			channel.connect(timeOut == null ? default_timeOut : timeOut);
@@ -123,16 +124,18 @@ public class SFTPChannel {
 	 * @param userName
 	 * @param host
 	 * @param defaultPort
+	 * @param String password
 	 * @return
 	 * @throws JSchException
 	 */
-	public Session getSession(String userName, String host, int defaultPort,
+	public Session getSession(String userName, String host, int defaultPort,String password,
 			Integer timeOut, String proxy) throws JSchException {
 		JSch jsch = new JSch();
 		session = jsch.getSession(userName, host, defaultPort);
-		session.setProxy(getProxy(proxy));
+		//session.setProxy(getProxy(proxy));
 		session.setConfig(SftpConstant.ig_config, "no");
 		session.setTimeout(default_timeOut);
+		session.setPassword(password);
 		session.connect(timeOut == null ? default_timeOut : timeOut);
 		return session;
 	}
